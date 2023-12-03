@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">AlleAssignment</string>
+    <string name="screenshots">Screenshots</string>
+    <string name="screenshot_details">Screenshot Details</string>
+    <string name="syncing_screenshots_from_gallery">Syncing Screenshots From Gallery</string>
+    <string name="collections">Collections</string>
+    <string name="labels_not_available">Labels not available</string>
+    <string name="description">Description</string>
+    <string name="description_not_available">Description not available</string>
+    <string name="storage_permission_required">Storage permission required to get screenshots</string>
+    <string name="ask_permission">Ask permission</string>
+    <string name="done">Done</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="add_new_label">Add new label</string>
+    <string name="add_a_note">Add a note</string>
+</resources>
