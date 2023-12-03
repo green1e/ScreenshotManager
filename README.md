@@ -1,4 +1,4 @@
-# Screenshots Manager Android Application
+# Screenshots Manager
 
 This Android application allows users to view their saved screenshots and add details to them. It provides two main tabs in the bottom navigation menu:
 
