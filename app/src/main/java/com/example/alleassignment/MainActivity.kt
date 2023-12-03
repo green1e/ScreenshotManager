@@ -137,12 +137,15 @@ class MainActivity : AppCompatActivity() {
                 // remove this delay in production app
                 delay(400)
             }
-
-            viewModel.selectedImage = viewModel.imageList[0]
             binding.groupLoader.gone()
-            binding.groupHomeScreen.show()
-            supportFragmentManager.commit {
-                add(binding.fcvHome.id, ScreenshotsFragment())
+            if (viewModel.imageList.isNotEmpty()) {
+                viewModel.selectedImage = viewModel.imageList[0]
+                binding.groupHomeScreen.show()
+                supportFragmentManager.commit {
+                    add(binding.fcvHome.id, ScreenshotsFragment())
+                }
+            } else {
+                binding.tvNoScreenshots.show()
             }
         }
     }

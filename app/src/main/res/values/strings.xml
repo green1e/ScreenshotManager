@@ -14,4 +14,5 @@
     <string name="edit">Edit</string>
     <string name="add_new_label">Add new label</string>
     <string name="add_a_note">Add a note</string>
+    <string name="no_screenshots_found_in_your_phone">No screenshots found in your phone :(</string>
 </resources>

@@ -102,6 +102,22 @@
         app:strokeColor="@color/green"
         app:strokeWidth="1dp" />
 
+    <TextView
+        android:id="@+id/tvNoScreenshots"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="80dp"
+        android:gravity="center"
+        android:text="@string/no_screenshots_found_in_your_phone"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/groupLoader"
         android:layout_width="wrap_content"
