@@ -6,7 +6,6 @@ import com.example.alleassignment.data.model.Image
 import com.example.alleassignment.databinding.ItemImageBinding
 import com.example.alleassignment.ui.listener.LoadImageListener
 import com.example.alleassignment.ui.listener.OnScreenshotClickedListener
-import com.example.alleassignment.util.dpToPx
 
 class ImageViewHolder(
     private val binding: ItemImageBinding,
@@ -27,9 +26,7 @@ class ImageViewHolder(
             image.uri,
             null,
             R.color.white,
-            true,
-            dpToPx(40),
-            dpToPx(100)
+            true
         )
         binding.ivScreenshot.setOnClickListener {
             listener.onScreenshotClicked(image)

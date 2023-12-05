@@ -10,8 +10,6 @@ interface LoadImageListener {
         view: ImageView, uri: Uri?,
         progressBar: ProgressBar?,
         @DrawableRes fallbackDrawableRes: Int,
-        overrideSize: Boolean = false,
-        overrideWidth: Int = 0,
-        overrideHeight: Int = 0
+        overrideSize: Boolean = false
     )
 }

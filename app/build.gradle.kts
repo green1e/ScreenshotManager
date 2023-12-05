@@ -56,6 +56,9 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("com.github.bumptech.glide:recyclerview-integration:4.15.1") {
+        isTransitive = false
+    }
 
     kapt("androidx.room:room-compiler:2.6.1")
 
