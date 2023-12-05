@@ -5,17 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.alleassignment.data.model.Image
 import com.example.alleassignment.databinding.ItemImageBinding
+import com.example.alleassignment.ui.listener.LoadImageListener
 import com.example.alleassignment.ui.listener.OnScreenshotClickedListener
 
 class ImagesAdapter(
     private val images: ArrayList<Image>?,
-    private val listener: OnScreenshotClickedListener
+    private val listener: OnScreenshotClickedListener,
+    private val loadImageListener: LoadImageListener
 ) : RecyclerView.Adapter<ImageViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(
             ItemImageBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            ), listener
+            ), listener, loadImageListener
         )
     }
 

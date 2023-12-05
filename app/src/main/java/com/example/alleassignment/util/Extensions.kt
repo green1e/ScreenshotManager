@@ -2,6 +2,8 @@ package com.example.alleassignment.util
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.Settings
@@ -10,6 +12,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -31,19 +34,63 @@ fun View.gone() {
 }
 
 fun ImageView.loadImageWithFallBackDrawable(
+    fragment: Fragment?,
     uri: Uri?,
+    progressBar: ProgressBar?,
+    @DrawableRes fallbackDrawableRes: Int,
+    overrideSize: Boolean = false,
+    overrideWidth: Int = 0,
+    overrideHeight: Int = 0
+) {
+    if (uri == null) return
+    if (fragment == null || fragment.isRemoving) return
+    progressBar?.show()
+    val requestBuilder = Glide.with(fragment)
+        .load(uri)
+        .centerInside()
+        .apply(getCacheRequestOptions(fallbackDrawableRes, fallbackDrawableRes))
+        .listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                progressBar?.gone()
+                return false
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                progressBar?.gone()
+                return false
+            }
+        })
+    if (overrideSize) {
+        requestBuilder.override(overrideWidth, overrideHeight).into(this)
+    } else {
+        requestBuilder.into(this)
+    }
+}
+
+fun ImageView.loadImageBitmapWithFallBackDrawable(
+    bitmap: Bitmap?,
     progressBar: ProgressBar?,
     @DrawableRes fallbackDrawableRes: Int
 ) {
-    if (uri == null) return
+    if (bitmap == null) return
     val activity = context as? Activity
     if (activity?.isFinishing == true || activity?.isDestroyed == true)
         return
 
     progressBar?.show()
     Glide.with(context ?: return)
-        .load(uri)
-        .centerInside()
+        .load(bitmap)
         .apply(getCacheRequestOptions(fallbackDrawableRes, fallbackDrawableRes))
         .listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
@@ -75,7 +122,7 @@ private fun getCacheRequestOptions(
     @DrawableRes error: Int = R.color.black
 ): BaseRequestOptions<RequestOptions> {
     return RequestOptions()
-        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .placeholder(placeholder)
         .error(error)
 }
@@ -84,4 +131,8 @@ fun Activity.openPermissionSettings(binder: ActivityResultLauncher<Intent>) {
     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
     intent.data = Uri.fromParts("package", packageName, null)
     binder.launch(intent)
+}
+
+fun dpToPx(dp: Int): Int {
+    return (dp * Resources.getSystem().displayMetrics.density).toInt()
 }

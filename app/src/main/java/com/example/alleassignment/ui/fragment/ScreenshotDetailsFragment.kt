@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -94,6 +93,7 @@ class ScreenshotDetailsFragment : Fragment() {
 
     private fun setupView() {
         binding.ivScreenshot.loadImageWithFallBackDrawable(
+            this,
             viewModel.selectedImage.uri,
             binding.pbScreenshot,
             R.color.white
@@ -135,12 +135,14 @@ class ScreenshotDetailsFragment : Fragment() {
     }
 
     private fun setDescription() {
+        if (view == null) return
         var content = viewModel.selectedImage.text ?: ""
         if (content.isBlank()) content = getString(R.string.description_not_available)
         binding.tvDescription.text = content
     }
 
     private fun setLabels() {
+        if (view == null) return
         binding.chipGroupLabels.removeAllViews()
         if (viewModel.selectedImage.labels.isNullOrEmpty()) {
             binding.tvCollections.show()

@@ -4,20 +4,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.alleassignment.R
 import com.example.alleassignment.data.model.Image
 import com.example.alleassignment.databinding.ItemImageBinding
-import com.example.alleassignment.util.loadImageWithFallBackDrawable
+import com.example.alleassignment.ui.listener.LoadImageListener
 import com.example.alleassignment.ui.listener.OnScreenshotClickedListener
+import com.example.alleassignment.util.dpToPx
 
 class ImageViewHolder(
     private val binding: ItemImageBinding,
-    private val listener: OnScreenshotClickedListener
+    private val listener: OnScreenshotClickedListener,
+    private val loadImageListener: LoadImageListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(image: Image?) {
-        binding.ivScreenshot.loadImageWithFallBackDrawable(image?.uri, null, R.color.white)
+        if (image?.uri == null) return
+        /*val bitmap = binding.ivScreenshot.context.contentResolver.loadThumbnail(
+            image.uri,
+            Size(100, 200),
+            null
+        )
+        binding.ivScreenshot.loadImageBitmapWithFallBackDrawable(bitmap, null, R.color.white)*/
+        loadImageListener.loadImage(
+            binding.ivScreenshot,
+            image.uri,
+            null,
+            R.color.white,
+            true,
+            dpToPx(40),
+            dpToPx(100)
+        )
         binding.ivScreenshot.setOnClickListener {
-            if (image != null) {
-                listener.onScreenshotClicked(image)
-            }
+            listener.onScreenshotClicked(image)
         }
     }
 }
